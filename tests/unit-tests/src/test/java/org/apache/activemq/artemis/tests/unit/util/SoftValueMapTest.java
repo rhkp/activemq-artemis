@@ -18,11 +18,12 @@ package org.apache.activemq.artemis.tests.unit.util;
 
 import org.apache.activemq.artemis.tests.util.ActiveMQTestBase;
 import org.apache.activemq.artemis.utils.SoftValueLongObjectHashMap;
-import org.jboss.logging.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SoftValueMapTest extends ActiveMQTestBase {
-   private static final Logger log = Logger.getLogger(SoftValueMapTest.class);
+   private static final Logger log = LoggerFactory.getLogger(SoftValueMapTest.class);
 
 
 
@@ -44,9 +45,9 @@ public class SoftValueMapTest extends ActiveMQTestBase {
 
       assertTrue(softCache.size() < MAX_ELEMENTS);
 
-      log.debug("SoftCache.size " + softCache.size());
+      log.debug("SoftCache.size {}", softCache.size());
 
-      log.debug("Soft cache has " + softCache.size() + " elements");
+      log.debug("Soft cache has {} elements", softCache.size());
    }
 
    @Test
@@ -82,9 +83,9 @@ public class SoftValueMapTest extends ActiveMQTestBase {
       // this is the next one, so it should go
       assertNull(softCache.get(101L));
 
-      log.debug("SoftCache.size " + softCache.size());
+      log.debug("SoftCache.size {}", softCache.size());
 
-      log.debug("Soft cache has " + softCache.size() + " elements");
+      log.debug("Soft cache has {} elements", softCache.size());
    }
 
    @Test
