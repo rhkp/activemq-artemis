@@ -1192,6 +1192,12 @@
          <id>dev</id>
          <build>
             <plugins>
+	       <plugin>
+                  <artifactId>maven-javadoc-plugin</artifactId>
+                  <configuration>
+                     <javadocExecutable>/usr/local/opt/openjdk@11/bin/javadoc</javadocExecutable>
+                  </configuration>
+               </plugin>
                <plugin>
                   <groupId>org.apache.rat</groupId>
                   <artifactId>apache-rat-plugin</artifactId>
@@ -1226,6 +1232,12 @@
          </modules>
          <build>
             <plugins>
+               <plugin>
+                  <artifactId>maven-javadoc-plugin</artifactId>
+                  <configuration>
+                     <javadocExecutable>/usr/local/opt/openjdk@11/bin/javadoc</javadocExecutable>
+                  </configuration>
+               </plugin>
                <plugin>
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-enforcer-plugin</artifactId>

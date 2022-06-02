@@ -1,0 +1,71 @@
+<configuration xmlns="urn:activemq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
+   <core xmlns="urn:activemq:core">
+      <name>BROKER-1</name>
+      <security-enabled>false</security-enabled>
+      <persistence-enabled>true</persistence-enabled>
+      
+      <bindings-directory>/Users/kpanchal/temp/data1/messaging/bindings</bindings-directory>
+
+      <journal-directory>/Users/kpanchal/temp/data1/messaging/journal</journal-directory>
+
+      <large-messages-directory>/Users/kpanchal/temp/data1/messaging/largemessages</large-messages-directory>
+
+      <paging-directory>/Users/kpanchal/temp/data1/messaging/paging</paging-directory>
+      <journal-datasync>true</journal-datasync>
+
+      <journal-min-files>2</journal-min-files>
+
+      <journal-pool-files>10</journal-pool-files>
+
+      <journal-device-block-size>4096</journal-device-block-size>
+
+      <journal-file-size>10M</journal-file-size>
+
+      <acceptors>
+         <acceptor name="in-vm">vm://1?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;amqpMinLargeMessageSize=102400;protocols=CORE,AMQP;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true</acceptor>
+	     <acceptor name="artemis">tcp://0.0.0.0:25661?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;amqpMinLargeMessageSize=102400;protocols=CORE,AMQP;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true</acceptor>
+      </acceptors>
+
+      <broker-connections>
+         <amqp-connection uri="tcp://vm://0" name="broker-0" retry-interval="1000">
+            <mirror/>
+         </amqp-connection>
+      </broker-connections>
+      
+<!-- 
+      <acceptors>
+         <acceptor name="in-vm">vm://1:5661</acceptor>
+      </acceptors>
+
+      <broker-connections>
+         <amqp-connection uri="tcp://0:5660" name="otherBroker" retry-interval="1000">
+            <mirror/>
+         </amqp-connection>
+      </broker-connections>
+ -->
+
+      <security-settings>
+         <security-setting match="#">
+            <permission type="createNonDurableQueue" roles="guest"/>
+            <permission type="deleteNonDurableQueue" roles="guest"/>
+            <permission type="createDurableQueue" roles="guest"/>
+            <permission type="deleteDurableQueue" roles="guest"/>
+            <permission type="createAddress" roles="guest"/>
+            <permission type="deleteAddress" roles="guest"/>
+            <permission type="consume" roles="guest"/>
+            <permission type="browse" roles="guest"/>
+            <permission type="send" roles="guest"/>
+            <!-- we need this otherwise ./artemis data imp wouldn't work -->
+            <permission type="manage" roles="guest"/>
+         </security-setting>
+      </security-settings>
+
+      <addresses>
+         <address name="exampleQueue">
+            <anycast>
+               <queue name="exampleQueue"/>
+            </anycast>
+         </address>
+      </addresses>
+   </core>
+</configuration>
