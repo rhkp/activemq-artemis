@@ -52,6 +52,8 @@ under the License.
             <module>amqp-receiving-messages</module>
             <module>amqp-sending-overssl</module>
             <module>disaster-recovery</module>
+            <module>run-broker-1</module>
+            <module>run-broker-2</module>
          </modules>
       </profile>
       <profile>
