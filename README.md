@@ -60,7 +60,7 @@ The output will be under ./target/dependency-check-report.html **for each** sub-
 
 Issues are tracked at https://issues.apache.org/jira/projects/ARTEMIS/
 
-## Debug Mirroring Features of ActiveMQ Artemis code with two Eclipse IDE Instances on local machine with two broker instances
+## Debug Mirroring Features of ActiveMQ Artemis code with two Eclipse IDE Instances on local machine - Approach 1
 * On local machine create two directories artemis1 & artemis2 and clone fork of ActiveMQ Artemis Code
 ```shell
 mkdir artemis1 
@@ -96,6 +96,6 @@ git clone https://github.com/rhkp/activemq-artemis.git
 
 * When broker1 breakpoint will be hit, artemis1 workspace Eclipse IDE will suspend execution and you will be able to debug broker1 code. Similarly broker2 will be available for debugging in Eclipse Instance two via artemis2 workspace.
 
-## Debug Mirroring Features of ActiveMQ Artemis code with One Eclipse IDE Instances on local machine with two broker instances
+## Debug Mirroring Features of ActiveMQ Artemis code with One Eclipse IDE Instances on local machine - Approach 2
 * In this case only use one workspaace such as artemis1 or artemis2. Instead of launching other instance from other workspace invoke both broker instances from one workspace itself by right click artemis-examples -> broker-features -> run-broker-1 or run-broker-2 project and click Debug as Maven build
 * This approach may be confusing however you may not know which broker's breakpoint is hit and you are debugging e.g.
