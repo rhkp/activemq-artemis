@@ -19,7 +19,7 @@ under the License.
 -->
 <configuration xmlns="urn:activemq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
    <core xmlns="urn:activemq:core">
-
+      <security-enabled>false</security-enabled>
       <bindings-directory>./data/messaging/bindings</bindings-directory>
 
       <journal-directory>./data/messaging/journal</journal-directory>
@@ -44,7 +44,7 @@ under the License.
          <acceptor name="artemis">tcp://0.0.0.0:5660?tcpSendBufferSize=1048576;tcpReceiveBufferSize=1048576;amqpMinLargeMessageSize=102400;protocols=CORE,AMQP,STOMP,HORNETQ,MQTT,OPENWIRE;useEpoll=true;amqpCredits=1000;amqpLowCredits=300;amqpDuplicateDetection=true</acceptor>
       </acceptors>
       <broker-connections>
-         <amqp-connection uri="tcp://localhost:5661" name="otherBroker" retry-interval="1000">
+         <amqp-connection uri="tcp://localhost:5661" name="otherBroker1" retry-interval="1000">
             <mirror/>
          </amqp-connection>
       </broker-connections>
