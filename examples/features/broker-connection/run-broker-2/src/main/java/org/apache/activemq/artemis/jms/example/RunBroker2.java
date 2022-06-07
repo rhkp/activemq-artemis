@@ -30,7 +30,7 @@ import org.apache.qpid.jms.JmsConnectionFactory;
  * On this example, two brokers are mirrored.
  * Everything that is happening on the first broker will be mirrored on the second, and Vice Versa.
  */
-public class RunBroker1 {
+public class RunBroker2 {
 
    public static void main(final String[] args) throws Exception {
 	   Thread.sleep(1000000);
