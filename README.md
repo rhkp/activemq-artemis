@@ -60,7 +60,9 @@ The output will be under ./target/dependency-check-report.html **for each** sub-
 
 Issues are tracked at https://issues.apache.org/jira/projects/ARTEMIS/
 
-## Debug Mirroring Features of ActiveMQ Artemis code with two Eclipse IDE Instances on local machine - Approach 1
+## Debugging topics
+
+### Debug Mirroring Features of ActiveMQ Artemis code with two Eclipse IDE Instances on local machine - Approach 1
 * On local machine create two directories artemis1 & artemis2 and clone fork of ActiveMQ Artemis Code
 ```shell
 mkdir artemis1 
@@ -96,6 +98,45 @@ git clone https://github.com/rhkp/activemq-artemis.git
 
 * When broker1 breakpoint will be hit, artemis1 workspace Eclipse IDE will suspend execution and you will be able to debug broker1 code. Similarly broker2 will be available for debugging in Eclipse Instance two via artemis2 workspace.
 
-## Debug Mirroring Features of ActiveMQ Artemis code with One Eclipse IDE Instances on local machine - Approach 2
+### Debug Mirroring Features of ActiveMQ Artemis code with One Eclipse IDE Instances on local machine - Approach 2
 * In this case only use one workspaace such as artemis1 or artemis2. Instead of launching other instance from other workspace invoke both broker instances from one workspace itself by right click artemis-examples -> broker-features -> run-broker-1 or run-broker-2 project and click Debug as Maven build
 * This approach may be confusing however you may not know which broker's breakpoint is hit and you are debugging e.g.
+
+### Synching two workspaces on Mac
+* Assuming that artemis1 is the workspace where all changes are made which need to be reflected to artemis2 workspace, use Mac OS' rsync utility to synchronize code changes in aretemis1 workspace to artemis2
+```shell
+rsync -r ~/projects/artemis1 ~/projects/artemis2
+```
+
+### Building (essential) projects in both workspaces
+* Create a text file with following contents, though you may add more projects to the list as needed for your needs
+```text
+<base dir>/artemis1/activemq-artemis/artemis-cli
+<base dir>/artemis1/activemq-artemis/examples
+<base dir>/artemis1/activemq-artemis/artemis-journal
+<base dir>/artemis1/activemq-artemis/artemis-junit
+<base dir>/artemis1/activemq-artemis/artemis-protocols
+<base dir>/artemis1/activemq-artemis/artemis-server
+<base dir>/artemis2/activemq-artemis/artemis-cli
+<base dir>/artemis2/activemq-artemis/examples
+<base dir>/artemis2/activemq-artemis/artemis-journal
+<base dir>/artemis2/activemq-artemis/artemis-junit
+<base dir>/artemis2/activemq-artemis/artemis-protocols
+<base dir>/artemis2/activemq-artemis/artemis-server
+```
+* Create shell file build-project-dirs.sh with following contents to build the projects above
+```shell
+#!/bin/bash
+
+PROJECTS_TO_BUILD=<base dir>/build-project-dirs.txt
+while read PROJECT; do
+    echo "Changing to directory and building: $PROJECT"
+	cd "$PROJECT"
+	mvn -Pdev install -DskipTests=true -Drat.skip -Dcheckstyle.skip    
+done < $PROJECTS_TO_BUILD
+```
+
+* Build your projects with the following command
+```shell
+./build-project-dirs.sh
+```
